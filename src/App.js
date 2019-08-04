@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback } from 'react';
+
+import { useCounter } from './entities';
+import Post from './Post';
 
 function App() {
+  const [counter, { increment, decrement }] = useCounter();
+
+  const handleClickIncrement = useCallback(() => increment(), [increment]);
+  const handleClickDecrement = useCallback(() => decrement(), [decrement]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>{counter.value}</div>
+      <button onClick={handleClickIncrement}>increment</button>
+      <button onClick={handleClickDecrement}>decrement</button>
+      <div>
+        <Post />
+      </div>
     </div>
   );
 }
